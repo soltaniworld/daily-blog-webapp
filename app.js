@@ -30,8 +30,16 @@ app.get('/contact', (req, res) => {
   res.render('contact', { contactContent: contactContent });
 });
 
+//compose GET route
+app.get('/compose', (req, res) => {
+  res.render('compose', {});
+});
 
-
+//compose POST route
+app.post('/compose', (req, res) => {
+  console.log(req.body);
+  res.redirect('/compose');
+});
 
 
 
