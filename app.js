@@ -33,7 +33,7 @@ app.get('/about', (req, res) => {
   res.render('about', { aboutContent: aboutContent });
 });
 
-//contact  us
+//contact us
 app.get('/contact', (req, res) => {
   res.render('contact', { contactContent: contactContent });
 });
@@ -42,6 +42,14 @@ app.get('/contact', (req, res) => {
 app.get('/compose', (req, res) => {
   res.render('compose', {});
 });
+
+//get route for post page
+app.get('/:post', (req, res) => {
+  const post = posts.find(post => post.title === req.params.post);
+  res.render('post', { post: post });
+});
+
+
 
 
 //compose POST route
