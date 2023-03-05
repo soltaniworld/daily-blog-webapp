@@ -8,7 +8,7 @@
         <%= post.title %>
     </h2>
     <p>
-        <%= post.body.slice(0,200) %> <a href="/<%= post.title %>">...more</a>
+        <%= post.body.slice(0,100) %> <a class="continue-article" href="posts/<%= post.title %>"> ... Read More</a>
     </p>
     <% }) %>
 
