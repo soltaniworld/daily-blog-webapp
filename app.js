@@ -11,9 +11,9 @@ const app = express();
 
 //all posts
 const posts = [
-  { title: 'Title One', body: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, laudantium?' },
-  { title: 'Title Two', body: 'Ipsum dolor sit amet consectetur adipisicing elit. Nulla, aut?' },
-  { title: 'Title Three', body: 'Obcaecati sequi quam numquam, asperiores non a ad quod veritatis.' }
+  { title: 'Title One', body: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo modi libero unde aspernatur ex sint expedita earum exercitationem nesciunt, animi in cumque incidunt cupiditate consequuntur labore culpa? Accusamus cupiditate animi aliquid sequi voluptatibus, vel perspiciatis possimus sint vero tempore quod excepturi minima culpa eligendi dolor!' },
+  { title: 'Title Two', body: 'Facilis delectus architecto consectetur tempore debitis commodi ducimus fuga saepe rem voluptas inventore neque quaerat voluptatem consequatur amet ut, nostrum, corrupti beatae. Natus suscipit nisi reprehenderit cupiditate omnis expedita aliquam debitis recusandae alias? Placeat vero itaque odit eveniet ad, dolorem aliquid animi! Modi, qui saepe?' },
+  { title: 'Title Three', body: 'Magni, officiis, rerum natus, autem aspernatur nulla quo voluptatem labore unde sunt nam temporibus? Aliquid vel voluptatibus quia ut nulla! Reprehenderit possimus excepturi quos porro dolore nulla. Molestiae facilis atque beatae quae incidunt necessitatibus impedit, possimus hic ad quia aut quidem esse excepturi nisi cumque?' }
 ];
 
 app.set('view engine', 'ejs');
