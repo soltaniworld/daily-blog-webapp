@@ -10,7 +10,11 @@ const contactContent = "Scelerisque eleifend donec pretium vulputate sapien. Rho
 const app = express();
 
 //all posts
-const posts = [];
+const posts = [
+  { title: 'Title One', body: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, laudantium?' },
+  { title: 'Title Two', body: 'Ipsum dolor sit amet consectetur adipisicing elit. Nulla, aut?' },
+  { title: 'Title Three', body: 'Obcaecati sequi quam numquam, asperiores non a ad quod veritatis.' }
+];
 
 app.set('view engine', 'ejs');
 
@@ -19,7 +23,9 @@ app.use(express.static("public"));
 
 //home page
 app.get('/', (req, res) => {
-  res.render('home', { homeStartingContent: homeStartingContent });
+  res.render('home', { 
+    homeStartingContent: homeStartingContent,
+    posts: posts });
 });
 
 //about page
@@ -35,7 +41,6 @@ app.get('/contact', (req, res) => {
 //compose GET route
 app.get('/compose', (req, res) => {
   res.render('compose', {});
-  //console.log(posts);
 });
 
 
@@ -46,11 +51,9 @@ app.post('/compose', (req, res) => {
     title: req.body.postTitle,
     body: req.body.postBody
   };
-  console.log(posts);
-  
-  //add post to the database
+ 
   posts.push(post)    
-  res.redirect('/compose');
+  res.redirect('/');
 });
 
 //posts view
