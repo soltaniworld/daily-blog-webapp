@@ -18,6 +18,9 @@ const posts = [
   { title: 'Title Three', body: 'Magni, officiis, rerum natus, autem aspernatur nulla quo voluptatem labore unde sunt nam temporibus? Aliquid vel voluptatibus quia ut nulla! Reprehenderit possimus excepturi quos porro dolore nulla. Molestiae facilis atque beatae quae incidunt necessitatibus impedit, possimus hic ad quia aut quidem esse excepturi nisi cumque?' }
 ];
 
+//replacing posts as we migrate to db
+const myPosts = [];
+
 const database = 'Blog';
 const username = 'ArashMongoDB';
 const pw = 'cuxg7fHOBwE62SAY';
@@ -53,7 +56,6 @@ app.use(express.static("public"));
 //home page route
 app.get('/', (req, res) => {
   // Retrieve all documents from the "posts" collection and add them to a list named "myPosts"
-  const myPosts = [];
   Post.find({}, { _id: 0, title: 1, body: 1 })
     .then(posts => {
       myPosts.push.apply(myPosts, posts);
@@ -90,7 +92,7 @@ app.get('/compose', (req, res) => {
 //get route for post page
 app.get('/posts/:post', (req, res) => {
   //find and return the post where title matches :post parameter
-  const post = posts.find(post => _.lowerCase(post.title) === _.lowerCase(req.params.post));
+  const post = myPosts.find(post => _.lowerCase(post.title) === _.lowerCase(req.params.post));
   res.render('post', { post: post });
 });
 
@@ -118,14 +120,6 @@ app.post('/compose', (req, res) => {
   res.redirect('/');
   
 });
-
-//posts view
-app.get('/posts', (req, res) => {
-  res.render('post', { posts: posts });
-});
-
-
-
 
 
 
