@@ -39,6 +39,9 @@ const postSchema = new mongoose.Schema({
 //the document auto added the plural and added to collection 'posts'
 const Post = mongoose.model('post', postSchema);
 
+//===================TESTING MONGOOSE READ ======================
+
+//===================END TESTING MONGOOSE READ ======================
 
 //set view engine to read ejs files
 app.set('view engine', 'ejs');
@@ -49,14 +52,24 @@ app.use(express.static("public"));
 
 //home page route
 app.get('/', (req, res) => {
-  res.render('home', {
-    homeStartingContent: homeStartingContent,
-    posts: posts
-  });
+  // Retrieve all documents from the "posts" collection and add them to a list named "myPosts"
+  const myPosts = [];
+  Post.find({}, { _id: 0, title: 1, body: 1 })
+    .then(posts => {
+      myPosts.push.apply(myPosts, posts);
+      console.log(myPosts[4]);
+    })
+    .then(()=>{
+      res.render('home', {
+        homeStartingContent: homeStartingContent,
+        posts: myPosts
+      });
 
+    })
+    .catch(err => {
+      console.error(err);
+    });
 
-  article = Blog.find().exec();
-  console.log(article);
 });
 
 //about page
