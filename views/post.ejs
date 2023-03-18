@@ -5,7 +5,15 @@
     <p>
         <%= post.body %>
     </p>
-    <p><%= post.createdAt %></p>
+    <!-- if there is a create date, show on page -->
+    <% if (post.createdAt) { %>
+        <% created = new Date(post.createdAt) %>
+        <p><strong>Created: </strong><%= created.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' , hour: 'numeric', minute: 'numeric', hour12: true}) %></p>
+    <% } %>
+    <!-- if create and update not the same, show updated datetime too -->
+    <% if (post.updatedAt && Date(post.updatedAt) != Date(post.createdAt) ) { %>
+        <p><strong>Updated: </strong><%= updated.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' , hour: 'numeric', minute: 'numeric', hour12: true}) %></p>
+    <% } %>
     <!-- Create a form to submit the delete request -->
     <form action="/delete/<%= post.title %>" method="POST">
         <!-- Replace `title` with the name of your Post object's title field -->
