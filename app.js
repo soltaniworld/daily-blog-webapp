@@ -26,8 +26,12 @@ mongoose.connect(`mongodb+srv://${username}:${pw}@${url}/${database}?retryWrites
 
 //define collection's schema
 const postSchema = new mongoose.Schema({
-  title: String,
-  body: String,
+  title: {
+    type: String,
+    required: true},
+  body: {
+    type: String,
+    required: true}
 });
 
 //initialize model for each document  based on schema
@@ -92,7 +96,6 @@ app.get('/posts/:post', (req, res) => {
       console.error(err);
       res.status(500).send('Internal Server Error');
     });
-
 });
 
 // delete post by title
@@ -111,9 +114,6 @@ app.post('/delete/:title', (req, res) => {
       res.status(500).send('Internal Server Error');
     });
     // res.redirect('/');
-
-    
-
 });
 
 
@@ -137,12 +137,11 @@ app.post('/compose', (req, res) => {
 async function getPosts() {
   await Post.find({}, { _id: 1, title: 1, body: 1 })
     .then(posts => {
+      myPosts.length = 0;
       myPosts.push.apply(myPosts, posts);
     });
 };
 
-//pull all new posts and set to array myPosts
-getPosts();
 
 app.listen(3000, function () {
   console.log("Server started on port 3000");

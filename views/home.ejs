@@ -9,6 +9,7 @@
     </h2>
     <p>
         <%= post.body.slice(0,100) %> <a class="continue-article" href="posts/<%= post.title %>"> ... Read More</a>
+        <a href="posts/<%= post._id %>">use ID for article</a>
     </p>
     <% }) %>
 
