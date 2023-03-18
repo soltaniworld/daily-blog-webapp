@@ -28,11 +28,15 @@ mongoose.connect(`mongodb+srv://${username}:${pw}@${url}/${database}?retryWrites
 const postSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: true},
+    required: true
+  },
   body: {
     type: String,
-    required: true}
-});
+    required: true
+  }
+  },
+  { timestamps: true}
+);
 
 //initialize model for each document  based on schema
 //keep in mine the coolection is called 'posts' and I only named the document  as 'post'
