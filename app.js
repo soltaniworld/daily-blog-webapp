@@ -5,6 +5,11 @@ const bodyParser = require("body-parser");
 //const ejs = require("ejs"); // you dont need to require EJS, as long as it is set as viewengine and is installed on  npm.
 const _ = require('lodash'); //use lodash to work with strings, arrays, etc..
 const mongoose = require('mongoose');
+const Post = require('./models/post');
+
+
+// sample blogs
+const postBlogs = require('./posts');
 
 const homeStartingContent = "Lacus vel facilisis volutpat est velit egestas dui id ornare. Semper auctor neque vitae tempus quam. Sit amet cursus sit amet dictum sit amet justo. Viverra tellus in hac habitasse. Imperdiet proin fermentum leo vel orci porta. Donec ultrices tincidunt arcu non sodales neque sodales ut. Mattis molestie a iaculis at erat pellentesque adipiscing. Magnis dis parturient montes nascetur ridiculus mus mauris vitae ultricies. Adipiscing elit ut aliquam purus sit amet luctus venenatis lectus. Ultrices vitae auctor eu augue ut lectus arcu bibendum at. Odio euismod lacinia at quis risus sed vulputate odio ut. Cursus mattis molestie a iaculis at erat pellentesque adipiscing.";
 const aboutContent = "Hac habitasse platea dictumst vestibulum rhoncus est pellentesque. Dictumst vestibulum rhoncus est pellentesque elit ullamcorper. Non diam phasellus vestibulum lorem sed. Platea dictumst quisque sagittis purus sit. Egestas sed sed risus pretium quam vulputate dignissim suspendisse. Mauris in aliquam sem fringilla. Semper risus in hendrerit gravida rutrum quisque non tellus orci. Amet massa vitae tortor condimentum lacinia quis vel eros. Enim ut tellus elementum sagittis vitae. Mauris ultrices eros in cursus turpis massa tincidunt dui.";
@@ -24,24 +29,6 @@ mongoose.connect(`mongodb+srv://${username}:${pw}@${url}/${database}?retryWrites
     console.log('Connected to MongoDB');
   })
 
-//define collection's schema
-const postSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true
-  },
-  body: {
-    type: String,
-    required: true
-  }
-  },
-  { timestamps: true}
-);
-
-//initialize model for each document  based on schema
-//keep in mine the coolection is called 'posts' and I only named the document  as 'post'
-//the document auto added the plural and added to collection 'posts'
-const Post = mongoose.model('post', postSchema);
 
 //===================TESTING MONGOOSE READ ======================
 
@@ -145,7 +132,6 @@ async function getPosts() {
       myPosts.push.apply(myPosts, posts);
     });
 };
-
 
 app.listen(3000, function () {
   console.log("Server started on port 3000");
