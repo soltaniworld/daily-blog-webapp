@@ -15,12 +15,15 @@
         <% updated=new Date(post.updatedAt) %>
         <p><strong>Updated: </strong><%= updated.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' , hour: 'numeric', minute: 'numeric', hour12: true}) %></p>
     <% } %>
-    <!-- Create a form to submit the delete request -->
-    <form action="/delete/<%= post.title %>" method="POST">
-        <button type="submit" class="btn btn-primary">Delete Post</button>
-    </form>
-    <form action="/update/<%= post._id%>" method="get">   
-        <button type="submit" class="btn btn-secondary">Update Post</button>
-    </form>
+    <div class="button-group">
+        <!-- submit the update request -->
+        <form action="/update/<%= post._id%>" method="get">
+            <button type="submit" class="btn btn-primary">Update Post</button>
+        </form>
+        <!-- submit the delete request -->
+        <form action="/delete/<%= post._id%>" method="POST">
+            <button type="submit" class="btn btn-warning">Delete Post</button>
+        </form>
+    </div>
 </div>
 <%- include('partials/footer') %>

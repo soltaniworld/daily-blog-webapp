@@ -11,6 +11,8 @@
         <label for="post">Post</label>
         <textarea class="form-control" name="postBody" id="post" cols="30" rows="10" required><%= post.body ? post.body: "" %></textarea>
     </div>
+<!-- hidden input -->
+    <input type="hidden" name="postID" value="<%= post._id %>">
     <button class="btn btn-primary" type="submit">Update</button>
 </form>
 <%- include('partials/footer') %>

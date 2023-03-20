@@ -72,45 +72,24 @@ app.post('/update/:id', (req, res)=>{
     title: req.body.postTitle,
     body: req.body.postBody
   }).exec();
-  res.redirect('/');
+  res.redirect(`/posts/${req.body.postTitle}/id/${req.body.postID}`);
 });
 
 //get route for post page using ID
-app.get(`/posts/:post/id/:postId`, (req, res) => {
-  //find by title
-  //Post.findOne({ title: { $regex: new RegExp(req.params.post, "i") } })
-
+app.get(`/posts/:post/id/:id`, (req, res) => {
   //find by ID
-  Post.findOne({_id: req.params.postId})
-    .then(post=>{
-      if (post) {
-        res.render('post', { post: post });
-      } else {
-        res.status(404).send('Post not found');
-      }
-    })
-    .catch(err => {
-      console.error(err);
-      res.status(500).send('Internal Server Error');
-    });
+  findByID(req, res, 'post');
 });
 
-// delete post by title
-app.post('/delete/:title', (req, res) => {
-  console.log("delete initiated: " + req.params.title);
-  Post.findOneAndDelete({ title: { $regex: new RegExp(req.params.title, "i") } })
-    .then(post => {
-      if (post) {
-        res.status(204).redirect('/'); // No Content
-      } else {
-        res.status(404).send('Post not found');
-      }
-    })
+// delete post by ID
+app.post('/delete/:id', (req, res) => {
+  console.log("delete initiated: ID: " + req.params.id);
+  Post.findByIdAndDelete(req.params.id).exec()
     .catch(err => {
       console.error(err);
       res.status(500).send('Internal Server Error');
     });
-    // res.redirect('/');
+  res.redirect('/');
 });
 
 
@@ -138,6 +117,8 @@ async function getPosts() {
 };
 
 function findByID (req, res, view){
+  //find by title
+  //Post.findOne({ title: { $regex: new RegExp(req.params.post, "i") } })
   //find by ID
   Post.findOne({ _id: req.params.id })
     .then(post => {

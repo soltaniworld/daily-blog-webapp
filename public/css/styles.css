@@ -56,3 +56,8 @@ a.continue-article::before {
 a.continue-article:hover::before {
     opacity: 0;
 }
+
+.button-group {
+    display: inline-flex;
+    gap: 10px;
+}
