@@ -4,12 +4,14 @@
 
 <%# loop through posts and print out each post as a title and body %>
 <% posts.forEach(post=> { %>
-    <h1>
-        <%= post.title %>
-    </h2>
-    <p>
-        <%= post.body.slice(0,100) %> <a class="continue-article" href="posts/<%= post.title %>/id/<%= post._id %>"> ... Read More</a>
-    </p>
+    <div class="post-container">
+        <h1>
+            <%= post.title %>
+        </h2>
+        <p>
+            <%= post.body.slice(0,300) %> <a class="continue-article" href="posts/<%= post.title.replace(/[^A-Z0-9]/ig, "_") %>/id/<%= post._id %>"> ... Read More</a>
+        </p>
+    </div>
     <% }) %>
 
 

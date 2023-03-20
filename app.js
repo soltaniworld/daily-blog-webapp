@@ -36,7 +36,8 @@ app.get('/', (req, res) => {
   .then(()=>{
     res.render('home', {
       homeStartingContent: homeStartingContent,
-      posts: myPosts
+      posts: myPosts,
+      _ : _
     });
   })
   .then(()=>{
@@ -85,11 +86,14 @@ app.get(`/posts/:post/id/:id`, (req, res) => {
 app.post('/delete/:id', (req, res) => {
   console.log("delete initiated: ID: " + req.params.id);
   Post.findByIdAndDelete(req.params.id).exec()
+    .then(()=>{
+      res.redirect('/');
+    })
     .catch(err => {
       console.error(err);
       res.status(500).send('Internal Server Error');
     });
-  res.redirect('/');
+  
 });
 
 
@@ -104,8 +108,11 @@ app.post('/compose', (req, res) => {
 
   // Create a new blog post object
   const postOnline = new Post(post);
-  postOnline.save();
-  res.redirect('/');
+  postOnline.save()
+  .then(()=>{
+    res.redirect('/');
+  });
+  
 });
 
 async function getPosts() {

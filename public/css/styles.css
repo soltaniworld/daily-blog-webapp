@@ -61,3 +61,8 @@ a.continue-article:hover::before {
     display: inline-flex;
     gap: 10px;
 }
+
+.post-container{
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
