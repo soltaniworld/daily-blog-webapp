@@ -11,15 +11,16 @@
         <p><strong>Created: </strong><%= created.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' , hour: 'numeric', minute: 'numeric', hour12: true}) %></p>
     <% } %>
     <!-- if create and update not the same, show updated datetime too -->
-    <% if (post.updatedAt && Date(post.updatedAt) != Date(post.createdAt) ) { %>
+    <% if (post.updatedAt) { %>
+        <% updated=new Date(post.updatedAt) %>
         <p><strong>Updated: </strong><%= updated.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' , hour: 'numeric', minute: 'numeric', hour12: true}) %></p>
     <% } %>
     <!-- Create a form to submit the delete request -->
     <form action="/delete/<%= post.title %>" method="POST">
-        <!-- Replace `title` with the name of your Post object's title field -->
-        <input type="hidden" name="delete" value="<%= post.title %>">
-
         <button type="submit" class="btn btn-primary">Delete Post</button>
+    </form>
+    <form action="/update/<%= post._id%>" method="get">   
+        <button type="submit" class="btn btn-secondary">Update Post</button>
     </form>
 </div>
 <%- include('partials/footer') %>
