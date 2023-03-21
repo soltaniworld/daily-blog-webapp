@@ -8,6 +8,11 @@
         <h1>
             <%= post.title %>
         </h2>
+        <% if (post.createdAt) { %>
+            <% created = new Date(post.createdAt) %>
+            <h5>posted: <%= created.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' , hour: 'numeric', minute: 'numeric', hour12: true}) %></h5>
+         
+        <% } %>
         <p>
             <%= post.body.slice(0,300) %> <a class="continue-article" href="posts/<%= post.title.replace(/[^A-Z0-9]/ig, "_") %>/id/<%= post._id %>"> ... Read More</a>
         </p>

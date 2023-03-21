@@ -9,9 +9,9 @@ const Post = require('./models/post');
 const db = require('./models/connect');
 
 
-const homeStartingContent = "Lacus vel facilisis volutpat est velit egestas dui id ornare. Semper auctor neque vitae tempus quam. Sit amet cursus sit amet dictum sit amet justo. Viverra tellus in hac habitasse. Imperdiet proin fermentum leo vel orci porta. Donec ultrices tincidunt arcu non sodales neque sodales ut. Mattis molestie a iaculis at erat pellentesque adipiscing. Magnis dis parturient montes nascetur ridiculus mus mauris vitae ultricies. Adipiscing elit ut aliquam purus sit amet luctus venenatis lectus. Ultrices vitae auctor eu augue ut lectus arcu bibendum at. Odio euismod lacinia at quis risus sed vulputate odio ut. Cursus mattis molestie a iaculis at erat pellentesque adipiscing.";
-const aboutContent = "Hac habitasse platea dictumst vestibulum rhoncus est pellentesque. Dictumst vestibulum rhoncus est pellentesque elit ullamcorper. Non diam phasellus vestibulum lorem sed. Platea dictumst quisque sagittis purus sit. Egestas sed sed risus pretium quam vulputate dignissim suspendisse. Mauris in aliquam sem fringilla. Semper risus in hendrerit gravida rutrum quisque non tellus orci. Amet massa vitae tortor condimentum lacinia quis vel eros. Enim ut tellus elementum sagittis vitae. Mauris ultrices eros in cursus turpis massa tincidunt dui.";
-const contactContent = "Scelerisque eleifend donec pretium vulputate sapien. Rhoncus urna neque viverra justo nec ultrices. Arcu dui vivamus arcu felis bibendum. Consectetur adipiscing elit duis tristique. Risus viverra adipiscing at in tellus integer feugiat. Sapien nec sagittis aliquam malesuada bibendum arcu vitae. Consequat interdum varius sit amet mattis. Iaculis nunc sed augue lacus. Interdum posuere lorem ipsum dolor sit amet consectetur adipiscing elit. Pulvinar elementum integer enim neque. Ultrices gravida dictum fusce ut placerat orci nulla. Mauris in aliquam sem fringilla ut morbi tincidunt. Tortor posuere ac ut consequat semper viverra nam libero.";
+const homeStartingContent = "Welcome to my personal blog site! Here, you will find a collection of my thoughts, ideas, and experiences as I navigate through life. I am passionate about sharing my insights on a variety of topics, ranging from personal growth and development, to travel, food, and culture. Whether you're looking for inspiration, entertainment, or simply a new perspective, I hope that my blog will provide you with valuable insights and a fresh outlook on life. Join me on this journey as we explore the world together, one blog post at a time.";
+const aboutContent = "Hello and welcome to my blog! My name is Ash, and I am the creator and writer behind this platform. I started this blog as a way to share my experiences, ideas, and perspectives with the world. I am passionate about personal growth and development, and I believe that we can all learn something from one another. Whether it's through travel, trying new foods, or simply taking the time to reflect on our lives, there is always something to learn and discover. Through this blog, I hope to inspire and motivate others to live their best lives and to embrace all the beauty and wonder that the world has to offer. Thank you for joining me on this journey, and I hope that you find something here that speaks to you.";
+const contactContent = "Thank you for taking the time to visit my blog. If you have any questions, comments, or just want to say hello, please feel free to reach out to me using the contact form below. I always love hearing from my readers and value your feedback. Whether you have a suggestion for a future blog post or just want to share your thoughts, I am here to listen. I will do my best to respond to your message as soon as possible. Thank you again for your interest in my blog, and I look forward to connecting with you soon!";
 const app = express();
 
 //delete cache
@@ -116,7 +116,7 @@ app.post('/compose', (req, res) => {
 });
 
 async function getPosts() {
-  await Post.find({}, { _id: 1, title: 1, body: 1 })
+  await Post.find({})
     .then(posts => {
       myPosts.length = 0;
       myPosts.push.apply(myPosts, posts);
