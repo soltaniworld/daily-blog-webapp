@@ -7,28 +7,31 @@ const _ = require('lodash'); //use lodash to work with strings, arrays, etc..
 const mongoose = require('mongoose');
 const Post = require('./models/post');
 const db = require('./models/connect');
-
-
-const homeStartingContent = "Welcome to my personal blog site! Here, you will find a collection of my thoughts, ideas, and experiences as I navigate through life. I am passionate about sharing my insights on a variety of topics, ranging from personal growth and development, to travel, food, and culture. Whether you're looking for inspiration, entertainment, or simply a new perspective, I hope that my blog will provide you with valuable insights and a fresh outlook on life. Join me on this journey as we explore the world together, one blog post at a time.";
-const aboutContent = "Hello and welcome to my blog! My name is Ash, and I am the creator and writer behind this platform. I started this blog as a way to share my experiences, ideas, and perspectives with the world. I am passionate about personal growth and development, and I believe that we can all learn something from one another. Whether it's through travel, trying new foods, or simply taking the time to reflect on our lives, there is always something to learn and discover. Through this blog, I hope to inspire and motivate others to live their best lives and to embrace all the beauty and wonder that the world has to offer. Thank you for joining me on this journey, and I hope that you find something here that speaks to you.";
-const contactContent = "Thank you for taking the time to visit my blog. If you have any questions, comments, or just want to say hello, please feel free to reach out to me using the contact form below. I always love hearing from my readers and value your feedback. Whether you have a suggestion for a future blog post or just want to share your thoughts, I am here to listen. I will do my best to respond to your message as soon as possible. Thank you again for your interest in my blog, and I look forward to connecting with you soon!";
+const Content = require('./models/page-content');
 const app = express();
 
 //delete cache
 app.set('view cache', false);
-
 //set view engine to read ejs files
 app.set('view engine', 'ejs');
 //set body parser to read request body
 app.use(bodyParser.urlencoded({ extended: true }));
 //set public folder to be referencable to public folder in the root of the project//set static folder to be referencable to public folder in the root of the project//set public folder to
 app.use(express.static("public"));
-//array containing all blogs
-const myPosts = [];
+
 
 //connect to mongodb database using credentials in dotenv
 db.connect(mongoose);
 
+//load page contents from db
+let homeStartingContent = "";
+let aboutContent = "";
+let contactContent = "";
+const myPosts = []; //array of all posts
+getPageContent();
+
+
+// ================================== ROUTES ==================================
 //home page route
 app.get('/', (req, res) => {
   console.log('home page loading');
@@ -115,6 +118,12 @@ app.post('/compose', (req, res) => {
   
 });
 
+// ================================== SERVER LISTENER ==================================
+app.listen(3000, function () {
+  console.log("Server started on port 3000");
+});
+
+// ================================== FUNCTIONS ==================================
 async function getPosts() {
   await Post.find({})
     .then(posts => {
@@ -141,6 +150,27 @@ function findByID (req, res, view){
     });
 }
 
-app.listen(3000, function () {
-  console.log("Server started on port 3000");
-});
+
+//get page content from db
+function getPageContent() {
+  Content.findOne({
+    page: 'home',
+    title: 'intro'
+  }).then((post) => {
+    homeStartingContent = post.content;
+  });
+  Content.findOne({
+    page: 'home',
+    title: 'intro'
+  }).then((post) => {
+    aboutContent = post.content;
+  });
+  Content.findOne({
+    page: 'home',
+    title: 'intro'
+  }).then((post) => {
+    contactContent = post.content;
+  });
+}
+
+
