@@ -36,16 +36,16 @@ getPageContent();
 app.get('/', (req, res) => {
   console.log('home page loading');
   getPosts()
-  .then(()=>{
-    res.render('home', {
-      homeStartingContent: homeStartingContent,
-      posts: myPosts,
-      _ : _
+    .then(() => {
+      res.render('home', {
+        homeStartingContent: homeStartingContent,
+        posts: myPosts,
+        _: _
+      });
+    })
+    .then(() => {
+      console.log('home page COMPLETE');
     });
-  })
-  .then(()=>{
-    console.log('home page COMPLETE');
-  });
 })
 
 //about page
@@ -64,12 +64,12 @@ app.get('/compose', (req, res) => {
 });
 
 //update post
-app.get('/update/:id', (req, res)=>{
+app.get('/update/:id', (req, res) => {
   //res.render('update', {post: post})
   findByID(req, res, 'update');
 });
 
-app.post('/update/:id', (req, res)=>{
+app.post('/update/:id', (req, res) => {
   console.log(req.body.postTitle);
   console.log(req.body.postBody);
   Post.findByIdAndUpdate(req.params.id, {
@@ -89,14 +89,14 @@ app.get(`/posts/:post/id/:id`, (req, res) => {
 app.post('/delete/:id', (req, res) => {
   console.log("delete initiated: ID: " + req.params.id);
   Post.findByIdAndDelete(req.params.id).exec()
-    .then(()=>{
+    .then(() => {
       res.redirect('/');
     })
     .catch(err => {
       console.error(err);
       res.status(500).send('Internal Server Error');
     });
-  
+
 });
 
 
@@ -112,11 +112,25 @@ app.post('/compose', (req, res) => {
   // Create a new blog post object
   const postOnline = new Post(post);
   postOnline.save()
-  .then(()=>{
-    res.redirect('/');
-  });
-  
+    .then(() => {
+      res.redirect('/');
+    });
 });
+
+// add multiple sample blog posts to fill blog
+app.get('/addsampleposts', (req, res) => {
+  const postBlogs = require('./models/sample-posts-many');
+  postBlogs();
+  res.redirect('/');
+})
+
+// add page content for homepage, about page, and contact page
+app.get('/addpagecontent', (req,res)=>{
+  addPageContent()
+  .then(()=>{
+    res.redirect('/')
+  });
+})
 
 // ================================== SERVER LISTENER ==================================
 app.listen(3000, function () {
@@ -132,7 +146,7 @@ async function getPosts() {
     });
 };
 
-function findByID (req, res, view){
+function findByID(req, res, view) {
   //find by title
   //Post.findOne({ title: { $regex: new RegExp(req.params.post, "i") } })
   //find by ID
@@ -158,19 +172,31 @@ function getPageContent() {
     title: 'intro'
   }).then((post) => {
     homeStartingContent = post.content;
+  }).catch((err) => {
+    homeStartingContent = "Visit /addPageContent to add sample homepage, abouts, and contant page content \n Visit /addSamplePosts to load sample blog posts"
   });
   Content.findOne({
     page: 'home',
     title: 'intro'
   }).then((post) => {
     aboutContent = post.content;
+  }).catch((err) => {
+    aboutContent = "Visit /addPageContent to add sample homepage, abouts, and contant page content. \n Visit /addSamplePosts to load sample blog posts"
   });
   Content.findOne({
     page: 'home',
     title: 'intro'
   }).then((post) => {
     contactContent = post.content;
+  }).catch((err) => {
+    contactContent = "Visit /addPageContent to add sample homepage, abouts, and contant page content \n Visit /addSamplePosts to load sample blog posts"
   });
 }
 
+//add content for home, about, and contact us if they are empty
+async function addPageContent () {
+  const content = require('./models/sample-page-content-many');
+  await content();
+  getPageContent();
+}
 
