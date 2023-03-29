@@ -1,6 +1,8 @@
 # My Daily Blog Site
 Welcome to my simple daily blog site on GitHub! This site is built using HTML, CSS, JavaScript, ExpressJS, NodeJS, and MongoDB with Mongoose.
 
+![screenshot of homepage](sample-blog.png)
+
 ## Getting Started
 To use the web app, you will need to make changes to the .env_example file. 
 
