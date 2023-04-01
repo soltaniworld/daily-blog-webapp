@@ -4,9 +4,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 //const ejs = require("ejs"); // you dont need to require EJS, as long as it is set as viewengine and is installed on  npm.
 const _ = require('lodash'); //use lodash to work with strings, arrays, etc..
-const mongoose = require('mongoose');
 const Post = require('./models/post');
-const db = require('./models/connect');
+const connectDB = require('./config/db');
 const Content = require('./models/page-content');
 const app = express();
 
@@ -21,7 +20,7 @@ app.use(express.static("public"));
 
 
 //connect to mongodb database using credentials in dotenv
-db.connect(mongoose);
+connectDB();
 
 //load page contents from db
 let homeStartingContent = "";

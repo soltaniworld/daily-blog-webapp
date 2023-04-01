@@ -3,7 +3,9 @@
 
 require('dotenv').config();
 
-function connect(mongoose) {
+const mongoose = require('mongoose');
+
+function connect() {
     const database = process.env.db;
     const username = process.env.db_USER;
     const pw = process.env.db_PW;
@@ -19,4 +21,4 @@ function connect(mongoose) {
         })
 }
 
-module.exports =  {connect: connect};
+module.exports = connect;
